@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中学主题总纲入口</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ef;
+      --brand: #0f766e;
+      --brand-soft: #ecfdf5;
+      --link: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.10), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+      color: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.14);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+    }
+    .hero p {
+      margin: 0;
+      line-height: 1.7;
+      max-width: 760px;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .meta {
+      margin-top: 14px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      margin-bottom: 18px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .topic-card {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .topic-card:hover {
+      transform: translateY(-2px);
+      border-color: #9fd8ca;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+    }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #065f46;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .topic-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+    .topic-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .topic-meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .topic-link {
+      margin-top: 12px;
+      color: var(--link);
+      font-weight: 600;
+    }
+    code {
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>中学主题总纲入口</h1>
+      <div class="meta">当前入口页更新时间：2026-04-27</div>
+    </section>
+
+    <section class="panel">
+      <div class="grid">
+        <a class="topic-card" href="./佛山市禅城区初中名单.html">
+          <div class="tag">专题 01</div>
+          <h3>佛山市禅城区初中信息与综合口碑排名</h3>
+          <p>聚合禅城区 27 所初中的基础信息、初一班数与人数、校园面积、是否带高中，以及统一口径下的综合评分结果。</p>
+          <div class="topic-meta">
+            主题范围：禅城区初中<br />
+            展示结构：公办 / 民办分组，统一排名<br />
+            数据状态：当前主体数据已完成，个别旧来源说明保留在备注中
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./佛山市禅城区小升初信息与操作指南.html">
+          <div class="tag">专题 02</div>
+          <h3>佛山市禅城区小升初学校学位分配</h3>
+          <p>聚合禅城区公办、民办初中七年级学位分配口径，重点看片区、直升、摇号、普通招生、补录等类型分别落到多少。</p>
+          <div class="topic-meta">
+            主题范围：禅城区小升初学校学位分配<br />
+            展示结构：公办学校对比 / 民办学校对比<br />
+            数据状态：优先2026；缺失时回退到 2025-2021 旧口径并明确标注
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./佛山市禅城区小升初关键时间线.html">
+          <div class="tag">专题 03</div>
+          <h3>佛山市禅城区小升初关键时间线</h3>
+          <p>独立整理公办、华英、佛实、民办平台、积分等关键时间节点，便于按日期顺序安排报名、确认、审核和注册动作。</p>
+          <div class="topic-meta">
+            主题范围：禅城区小升初关键节点<br />
+            展示结构：关键提醒 / 家庭情况速查 / 时间线明细<br />
+            数据状态：当前时间节点已收口，未精确到日的部分均已明确说明
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./佛山市禅城区公办初中学位分配（2023-2025）.html">
+          <div class="tag">专题 04</div>
+          <h3>禅城区列表学校积分生学位分配（2023-2025）</h3>
+          <p>只看禅城区与当前列表 19 校，聚焦 2023-2025 三年公办初中积分生：总学位、逐校已公开学位、补录席位、报名与录取公开口径。</p>
+          <div class="topic-meta">
+            主题范围：禅城区 + 列表19校（不跨区）<br />
+            展示结构：三年总览 + 按年学校分表<br />
+            数据状态：学校级缺失项明确标注“未公开”
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./佛山市禅城区智城学校摇号情况（2023-2025）.html">
+          <div class="tag">专题 05</div>
+          <h3>佛山市禅城区智城学校摇号情况（2023-2025）</h3>
+          <p>单独追智城学校（初中）这条线，拆开看 2023-2025 三年自主选校是否摇号、学位多少、报名多少、中签率多少，以及哪些数字仍未公开。</p>
+          <div class="topic-meta">
+            主题范围：智城学校（初中）自主选校摇号<br />
+            展示结构：机制说明 + 分年数据 + 公开缺口<br />
+            数据状态：2023-2024 学校级数据已补到，2025 已确认摇号但部分数字未公开
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./佛山市禅城区智城学校与其他初中积分生口径对照（简版）.html">
+          <div class="tag">专题 06</div>
+          <h3>智城学校与其他初中积分生口径对照（简版）</h3>
+          <p>一张超简表：只比较“为什么看起来智城没有积分生”，不展开长篇解释，直接看结论。</p>
+          <div class="topic-meta">
+            主题范围：智城学校（初中）vs 列表里其他公办初中<br />
+            展示结构：单表对照 + 一句结论<br />
+            数据状态：仅保留已确认口径，缺失项明确写“还缺证据”
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+
+        <a class="topic-card" href="./汾江中学对口小学和社区.html">
+          <div class="tag">专题 07</div>
+          <h3>汾江中学对口小学和社区</h3>
+          <p>聚焦汾江中学：先看 2026 年对口小学，再落到对应小学的社区/小区地段明细，方便按居住地快速判断。</p>
+          <div class="topic-meta">
+            主题范围：汾江中学对口小学 + 社区/小区<br />
+            展示结构：结论卡片 + 明细表 + 来源链接<br />
+            数据状态：对口小学口径使用 2026；社区地段使用已公开最新街道表
+          </div>
+          <div class="topic-link">进入主题页</div>
+        </a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

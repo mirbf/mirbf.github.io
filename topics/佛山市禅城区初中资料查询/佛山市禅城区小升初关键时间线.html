@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛山市禅城区小升初关键时间线</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #0f766e;
+      --brand-soft: #ecfdf5;
+      --warn: #b45309;
+      --blue-soft: #eff6ff;
+      --blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 45%);
+    }
+    .wrap {
+      max-width: 1360px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+    .title-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    p, li { line-height: 1.7; }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .warn {
+      color: var(--warn);
+      font-weight: 600;
+      margin: 8px 0 0;
+    }
+    .note-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+    .summary-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      background: #fff;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    tbody td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    .ref {
+      color: #0369a1;
+      text-decoration: none;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .ref:hover,
+    .sources a:hover {
+      text-decoration: underline;
+    }
+    .sources a,
+    .local-link {
+      color: #0369a1;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="title-bar">
+        <h1 id="title">加载中...</h1>
+        <a class="back-link" href="./中学总纲入口.html">返回总纲入口</a>
+      </div>
+      <div class="meta" id="meta"></div>
+      <div>
+        <span class="badge">独立时间线主题</span>
+        <span class="badge">优先2026官方口径</span>
+        <span class="badge">按时间顺序查看</span>
+      </div>
+      <p class="warn" id="disclaimer"></p>
+      <ul class="note-list" id="notes"></ul>
+    </section>
+
+    <section class="card">
+      <h2>关键提醒</h2>
+      <div class="alert-grid" id="alerts"></div>
+    </section>
+
+    <section class="card">
+      <h2>家庭情况速查</h2>
+      <div class="summary-line">这一页只服务于时间顺序和报名动作判断。先看自己属于哪类，再回到时间线看要在什么窗口完成什么操作。</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>家庭 / 学生情况</th>
+              <th>优先关注路径</th>
+              <th>能否报公办</th>
+              <th>主要风险</th>
+            </tr>
+          </thead>
+          <tbody id="quickRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>关键时间线</h2>
+      <div class="summary-line">时间线只写当前已核实到的关键节点；民办平台未明确到日的后续动作，统一按“以平台后续通知为准”处理。</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>事项</th>
+              <th>适用对象</th>
+              <th>入口 / 地点</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody id="timelineRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card sources">
+      <h2>主要来源</h2>
+      <ul id="sources"></ul>
+      <p class="small">说明：本页使用 <code>core.js</code> 中的时间线、速查和来源数据，可直接双击打开。</p>
+    </section>
+  </div>
+
+  <script src="./佛山市禅城区小升初信息与操作指南.core.js"></script>
+  <script>
+    function displayValue(v) {
+      return (v === null || v === undefined || v === '') ? '未公开' : v;
+    }
+
+    function refHtml(refs) {
+      if (!refs || !refs.length) return '';
+      const uniq = [...new Set(refs)].sort((a, b) => a - b);
+      return uniq.map(i => `<a class="ref" href="#src-${i}" title="查看参考文献[${i}]">[${i}]</a>`).join('');
+    }
+
+    function textWithRefs(text, refs) {
+      return `${displayValue(text)} ${refHtml(refs)}`.trim();
+    }
+
+    function renderAlert(item) {
+      return `
+        <div class="mini-card">
+          <h3>${item.title}</h3>
+          <p>${item.text} ${refHtml(item.source_refs)}</p>
+        </div>
+      `;
+    }
+
+    function renderQuickRow(item) {
+      return `
+        <tr>
+          <td>${textWithRefs(item.scenario, item.source_refs)}</td>
+          <td>${displayValue(item.priority_path)}</td>
+          <td>${displayValue(item.public_access)}</td>
+          <td>${displayValue(item.risk)}</td>
+        </tr>
+      `;
+    }
+
+    function renderTimelineRow(item) {
+      return `
+        <tr>
+          <td>${textWithRefs(item.time, item.source_refs)}</td>
+          <td>${displayValue(item.item)}</td>
+          <td>${displayValue(item.target)}</td>
+          <td>${displayValue(item.entry)}</td>
+          <td>${displayValue(item.note)}</td>
+        </tr>
+      `;
+    }
+
+    (function init() {
+      const data = window.__schoolGuideCoreData;
+      if (!data) {
+        document.body.innerHTML = '<div style="max-width:800px;margin:40px auto;font-family:Arial,sans-serif;line-height:1.7;"><h2>页面加载失败</h2><p>未找到小升初时间线数据脚本。</p></div>';
+        return;
+      }
+
+      document.getElementById('title').textContent = '佛山市禅城区小升初关键时间线';
+      document.getElementById('meta').innerHTML = `更新时间：${data.meta.updated_at} ｜ 主题范围：禅城区公办、华英、佛实、民办平台、积分关键节点`;
+      document.getElementById('disclaimer').textContent = data.meta.disclaimer;
+      document.getElementById('notes').innerHTML = data.meta.notes.map(text => `<li>${text}</li>`).join('');
+      document.getElementById('alerts').innerHTML = data.alerts.map(renderAlert).join('');
+      document.getElementById('quickRows').innerHTML = data.quick_paths.map(renderQuickRow).join('');
+      document.getElementById('timelineRows').innerHTML = data.timeline.map(renderTimelineRow).join('');
+
+      const src = document.getElementById('sources');
+      data.meta.sources.forEach((item, idx) => {
+        const no = idx + 1;
+        const li = document.createElement('li');
+        li.id = `src-${no}`;
+        const isLocal = item.url.startsWith('./');
+        li.innerHTML = `[${no}] <a ${isLocal ? 'class="local-link"' : ''} href="${item.url}" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">${item.name}</a>`;
+        src.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

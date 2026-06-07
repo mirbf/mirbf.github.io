@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛山市禅城区小升初学位分配与操作指南</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #0f766e;
+      --brand-soft: #ecfdf5;
+      --warn: #b45309;
+      --blue-soft: #eff6ff;
+      --blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 45%);
+    }
+    .wrap {
+      max-width: 1440px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+    .title-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    p, li { line-height: 1.7; }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .back-link:hover { text-decoration: underline; }
+    .warn {
+      color: var(--warn);
+      font-weight: 600;
+      margin: 8px 0 0;
+    }
+    .note-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+    .alert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+    .mini-card p,
+    .mini-card ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .mini-card ul {
+      padding-left: 18px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1180px;
+      background: #fff;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    tbody td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      vertical-align: top;
+      line-height: 1.7;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    .rank {
+      font-weight: 700;
+      color: var(--brand);
+      white-space: nowrap;
+    }
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .muted { color: var(--muted); }
+    .ref {
+      color: #0369a1;
+      text-decoration: none;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .ref:hover { text-decoration: underline; }
+    .sources a,
+    .local-link {
+      color: #0369a1;
+      text-decoration: none;
+    }
+    .sources a:hover,
+    .local-link:hover {
+      text-decoration: underline;
+    }
+    .pending-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .summary-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .cell-stack > div { margin-bottom: 4px; }
+    .cell-stack > div:last-child { margin-bottom: 0; }
+    .source-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .school-jump {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .school-jump:hover {
+      text-decoration: underline;
+    }
+    .topic-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .topic-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 88px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .topic-head h2 {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="title-bar">
+        <h1 id="title">加载中...</h1>
+        <a class="back-link" href="./中学总纲入口.html">返回总纲入口</a>
+      </div>
+      <div class="meta" id="meta"></div>
+      <div>
+        <span class="badge">内部整理使用</span>
+        <span class="badge">优先2026官方口径</span>
+        <span class="badge">按学校学位分配查看</span>
+      </div>
+      <p class="warn" id="disclaimer"></p>
+      <ul class="note-list" id="notes"></ul>
+    </section>
+
+    <section class="card">
+      <div class="topic-head">
+        <span class="topic-index">主题 01</span>
+        <h2>学校学位分配</h2>
+      </div>
+      <div class="summary-line">这一部分单独看各学校七年级学位怎么分。能落到片区、优教、校内直升、普通招生等人数的直接写数字；学校级没公开的，就明确写“未公开”。</div>
+    </section>
+
+    <section class="card">
+      <h2>公办初中对比</h2>
+      <div class="summary-line">排名参考列直接复用本地《初中排名页》数据；招生计划列优先采用 2026 官方附件 5；本轮重点改成“每所学校学位怎么分”，能落到片区 / 直升 / 优教 / 政策生 / 积分等人数的直接写数字，拿不到数字的只写录取顺序和“未公开”。</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>初中排名参考</th>
+              <th>学校</th>
+              <th>2026招生计划</th>
+              <th>学位分配</th>
+              <th>适用人群</th>
+              <th>学费</th>
+              <th>住宿信息</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody id="publicRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>民办初中对比</h2>
+      <div class="summary-line">“近年七年级计划”优先复用学校公开页和本地已核实口径；本轮重点是把每校学位拆到直招 / 校内直升 / 普通招生 / 补录四类。2026 学校级分项多数未公开时，退回到 2025 / 2022 / 2021 旧口径，但会明确写年份。</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>初中排名参考</th>
+              <th>学校</th>
+              <th>近年七年级计划</th>
+              <th>学位分配</th>
+              <th>收费参考</th>
+              <th>住宿信息</th>
+              <th>招生方式 / 协议直招范围</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody id="privateRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card sources">
+      <h2>主要来源</h2>
+      <ul id="sources"></ul>
+      <p class="small">说明：本页使用 <code>core.js / public.js / private.js</code> 分片数据，并由 <code>data.js</code> 汇总渲染；可直接双击打开，同时同步引用本目录下的《初中排名页》数据脚本。</p>
+    </section>
+  </div>
+
+  <script src="./佛山市禅城区初中名单.data.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.core.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.public.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.private.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.data.js"></script>
+  <script>
+    function displayValue(v) {
+      return (v === null || v === undefined || v === '') ? '未公开' : v;
+    }
+
+    function refHtml(refs) {
+      if (!refs || !refs.length) return '';
+      const uniq = [...new Set(refs)].sort((a, b) => a - b);
+      return uniq.map(i => `<a class="ref" href="#src-${i}" title="查看参考文献[${i}]">[${i}]</a>`).join('');
+    }
+
+    function textWithRefs(text, refs) {
+      return `${displayValue(text)} ${refHtml(refs)}`.trim();
+    }
+
+    function normalizeName(name) {
+      return String(name || '')
+        .replace(/（.*?）/g, '')
+        .replace(/\(.*?\)/g, '')
+        .replace(/\s+/g, '')
+        .trim();
+    }
+
+    function linesOf(value) {
+      if (Array.isArray(value)) return value;
+      if (value === null || value === undefined || value === '') return [];
+      return [value];
+    }
+
+    function findRanking(aliases) {
+      const schools = (window.__schoolData && window.__schoolData.schools) || [];
+      const aliasList = (aliases || []).map(normalizeName);
+      return schools.find(item => aliasList.includes(normalizeName(item.name))) || null;
+    }
+
+    function formatScoreValue(v) {
+      if (v === null || v === undefined || v === '') return '未公开';
+      const n = Number(v);
+      return Number.isFinite(n) ? String(n) : displayValue(v);
+    }
+
+    function rankingSummary(rank) {
+      return `${formatScoreValue(rank.score_achievement)}，${formatScoreValue(rank.score_reputation)}，${formatScoreValue(rank.score_strength)} = ${formatScoreValue(rank.score_total)}`;
+    }
+
+    function rankingCell(aliases) {
+      const rank = findRanking(aliases);
+      if (!rank) {
+        return `<div class="rank">未匹配 ${refHtml([1])}</div><div class="small">本地排名页未匹配到</div>`;
+      }
+      return `<div class="rank">#${rank.rank_overall} ${refHtml([1])}</div><div class="small">${rankingSummary(rank)}</div>`;
+    }
+
+    function schoolAnchorId(name) {
+      return `school-${normalizeName(name)}`;
+    }
+
+    function schoolNameCell(aliases) {
+      const rank = findRanking(aliases);
+      const label = rank ? rank.name : displayValue((aliases || [])[0]);
+      if (!rank) return label;
+      return `<a class="school-jump" href="./佛山市禅城区初中名单.html#${schoolAnchorId(rank.name)}">${rank.name}</a>`;
+    }
+
+    function cellStack(lines) {
+      return `<div class="cell-stack">${lines.filter(Boolean).map(line => `<div>${line}</div>`).join('')}</div>`;
+    }
+
+    function stackCell(value, fallback = '未公开') {
+      const lines = linesOf(value).map(displayValue).filter(Boolean);
+      return cellStack(lines.length ? lines : [fallback]);
+    }
+
+    function sourceNote(refs) {
+      if (!refs || !refs.length) return '';
+      return `<span class="source-note">来源 ${refHtml(refs)}</span>`;
+    }
+
+    function renderAlert(item) {
+      return `
+        <div class="mini-card">
+          <h3>${item.title}</h3>
+          <p>${item.text} ${refHtml(item.source_refs)}</p>
+        </div>
+      `;
+    }
+
+    function renderQuickRow(item) {
+      return `
+        <tr>
+          <td>${textWithRefs(item.scenario, item.source_refs)}</td>
+          <td>${displayValue(item.priority_path)}</td>
+          <td>${displayValue(item.public_access)}</td>
+          <td>${displayValue(item.risk)}</td>
+        </tr>
+      `;
+    }
+
+    function publicAudienceCell(item, defaults) {
+      const target = item.target_group || defaults.target_group;
+      const path = item.admission_path || defaults.admission_path;
+      const hasCustomTarget = Boolean(item.target_group) && item.target_group !== defaults.target_group;
+      const hasCustomPath = Boolean(item.admission_path) && item.admission_path !== defaults.admission_path;
+
+      // Ordinary public schools mostly share the same rule set, so keep one concise line.
+      if (!hasCustomTarget && !hasCustomPath) {
+        return displayValue(target);
+      }
+
+      const lines = [displayValue(target)];
+      if (path && path !== target) {
+        lines.push(`<span class="small">路径：${displayValue(path)}</span>`);
+      }
+      return cellStack(lines);
+    }
+
+    function renderPublicRow(item, defaults) {
+      return `
+        <tr>
+          <td>${rankingCell(item.ranking_aliases)}</td>
+          <td>${schoolNameCell(item.ranking_aliases)}</td>
+          <td>${textWithRefs(item.plan_display, item.source_refs)}</td>
+          <td>${stackCell(item.quota_breakdown || defaults.quota_breakdown)}</td>
+          <td>${publicAudienceCell(item, defaults)}</td>
+          <td>${displayValue(item.fee || defaults.fee)}</td>
+          <td>${displayValue(item.boarding || defaults.boarding)}</td>
+          <td>${cellStack([
+            displayValue(item.note || defaults.note),
+            sourceNote(item.source_refs)
+          ])}</td>
+        </tr>
+      `;
+    }
+
+    function renderPrivateRow(item) {
+      return `
+        <tr>
+          <td>${rankingCell(item.ranking_aliases)}</td>
+          <td>${schoolNameCell(item.ranking_aliases)}</td>
+          <td>${textWithRefs(item.plan_display, item.source_refs)}</td>
+          <td>${stackCell(item.quota_breakdown)}</td>
+          <td>${cellStack([
+            `学费：${displayValue(item.fee)}`,
+            `住宿费：${displayValue(item.boarding_fee)}`,
+            `伙食费：${displayValue(item.meal_fee)}`
+          ])}</td>
+          <td>${displayValue(item.boarding)}</td>
+          <td>${cellStack([
+            `招生方式：${displayValue(item.admission_modes)}`,
+            displayValue(item.direct_scope)
+          ])}</td>
+          <td>${cellStack([
+            displayValue(item.note),
+            sourceNote(item.source_refs)
+          ])}</td>
+        </tr>
+      `;
+    }
+
+    function renderPending(item) {
+      return `<li><strong>${item.item}</strong>：${item.detail}</li>`;
+    }
+
+    (function init() {
+      const data = window.__schoolGuideData;
+      if (!data) {
+        document.body.innerHTML = '<div style="max-width:800px;margin:40px auto;font-family:Arial,sans-serif;line-height:1.7;"><h2>页面加载失败</h2><p>未找到小升初数据脚本。</p></div>';
+        return;
+      }
+
+      document.getElementById('title').textContent = data.meta.title;
+      document.getElementById('meta').innerHTML = `更新时间：${data.meta.updated_at} ｜ 主题范围：禅城区公办、民办、直升、摇号、补录、积分、跨区常见路径`;
+      document.getElementById('disclaimer').textContent = data.meta.disclaimer;
+      document.getElementById('notes').innerHTML = data.meta.notes.map(text => `<li>${text}</li>`).join('');
+      document.getElementById('publicRows').innerHTML = data.public_schools.map(item => renderPublicRow(item, data.public_defaults)).join('');
+      document.getElementById('privateRows').innerHTML = data.private_schools.map(renderPrivateRow).join('');
+
+      const src = document.getElementById('sources');
+      data.meta.sources.forEach((item, idx) => {
+        const no = idx + 1;
+        const li = document.createElement('li');
+        li.id = `src-${no}`;
+        const isLocal = item.url.startsWith('./');
+        li.innerHTML = `[${no}] <a ${isLocal ? 'class="local-link"' : ''} href="${item.url}" target="${isLocal ? '_self' : '_blank'}" rel="noopener noreferrer">${item.name}</a>`;
+        src.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

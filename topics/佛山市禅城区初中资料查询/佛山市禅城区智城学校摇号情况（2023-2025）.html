@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛山市禅城区智城学校摇号情况（2023-2025）</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ef;
+      --brand: #0f766e;
+      --brand-soft: #ecfdf5;
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --warn: #b45309;
+      --danger-soft: #fff7ed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.10), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+    .wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      margin-bottom: 18px;
+    }
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    p, li { line-height: 1.75; }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .back-link:hover,
+    .source-link:hover,
+    .source-tag:hover {
+      text-decoration: underline;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+    .warn {
+      color: var(--warn);
+      font-weight: 600;
+      margin: 8px 0 0;
+    }
+    .note-list,
+    .source-list,
+    .cell-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+    .mini-card p,
+    .mini-card ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .section-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .summary-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    thead th {
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    tbody td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      vertical-align: top;
+      line-height: 1.75;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    .status-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #d1fae5;
+      color: #065f46;
+      background: #ecfdf5;
+    }
+    .source-tag {
+      color: #0369a1;
+      text-decoration: none;
+      margin-right: 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .source-link {
+      color: #0369a1;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .foot-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .unknown-box {
+      border: 1px solid #fed7aa;
+      background: var(--danger-soft);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    @media (max-width: 900px) {
+      .title-bar {
+        flex-direction: column;
+      }
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="title-bar">
+        <div>
+          <h1 id="title">加载中...</h1>
+          <div class="meta" id="meta"></div>
+        </div>
+        <a class="back-link" href="./中学总纲入口.html">返回总纲入口</a>
+      </div>
+      <div>
+        <span class="badge">专题 05</span>
+        <span class="badge">智城学校（初中）</span>
+        <span class="badge">自主选校 / 摇号</span>
+        <span class="badge">2023-2025</span>
+      </div>
+      <p class="warn">只写能确认到的公开事实。没有学校级数字的年份，直接标注“未公开”。</p>
+      <ul class="note-list" id="notes"></ul>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">总览</span>
+        <h2>智城学校三年摇号概况</h2>
+      </div>
+      <div class="grid" id="overviewGrid"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">机制说明</span>
+        <h2>智城学校为什么会出现摇号</h2>
+      </div>
+      <div class="grid" id="mechanismGrid"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">分年数据</span>
+        <h2>2023-2025 年学校级公开情况</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>是否摇号</th>
+              <th>学位数</th>
+              <th>报名人数</th>
+              <th>录取口径</th>
+              <th>中签率</th>
+              <th>报录比</th>
+              <th>公开情况</th>
+              <th>来源</th>
+            </tr>
+          </thead>
+          <tbody id="yearBody"></tbody>
+        </table>
+      </div>
+      <div class="foot-note">说明：2024 年另有一张中签编号结果图，写明“摇号数量 282、摇号人数 286”；两者差额原因公开页未解释。</div>
+    </section>
+
+    <div id="detailSections"></div>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">公开缺口</span>
+        <h2>当前还没查到的内容</h2>
+      </div>
+      <div class="unknown-box">
+        <ul class="note-list" id="unknownList"></ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">资料来源</span>
+        <h2>引用页面</h2>
+      </div>
+      <ul class="source-list" id="sourceList"></ul>
+    </section>
+  </div>
+
+  <script src="./佛山市禅城区智城学校摇号情况（2023-2025）.data.js"></script>
+  <script>
+    (function () {
+      const data = window.__zhichengLotteryTopicData;
+      if (!data) {
+        document.body.innerHTML = '<p style="padding:24px;font-family:sans-serif;">数据加载失败</p>';
+        return;
+      }
+
+      const sourceMap = new Map(data.sources.map((item) => [item.id, item]));
+      const titleEl = document.getElementById('title');
+      const metaEl = document.getElementById('meta');
+      const notesEl = document.getElementById('notes');
+      const overviewGridEl = document.getElementById('overviewGrid');
+      const mechanismGridEl = document.getElementById('mechanismGrid');
+      const yearBodyEl = document.getElementById('yearBody');
+      const detailSectionsEl = document.getElementById('detailSections');
+      const unknownListEl = document.getElementById('unknownList');
+      const sourceListEl = document.getElementById('sourceList');
+
+      titleEl.textContent = data.meta.title;
+      metaEl.textContent = '学校：' + data.meta.schoolName + ' ｜ 覆盖年份：' + data.meta.yearsCovered + ' ｜ 页面更新时间：' + data.meta.updatedAt;
+
+      data.notes.forEach((note) => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        notesEl.appendChild(li);
+      });
+
+      data.overview.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'mini-card';
+        card.innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p>';
+        overviewGridEl.appendChild(card);
+      });
+
+      data.mechanism.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'mini-card';
+        card.innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p>';
+        mechanismGridEl.appendChild(card);
+      });
+
+      const yearRows = data.years.map((item) => {
+        const sourceHtml = (item.sourceRefs || []).map((id) => {
+          const src = sourceMap.get(id);
+          if (!src) return '';
+          return '<a class="source-tag" href="' + src.url + '" target="_blank" rel="noreferrer">来源' + id + '</a>';
+        }).join('');
+
+        return (
+          '<tr>' +
+            '<td>' + item.year + '</td>' +
+            '<td><span class="status-tag">' + item.status + '</span></td>' +
+            '<td>' + item.seats + '</td>' +
+            '<td>' + item.applicants + '</td>' +
+            '<td>' + item.admissions + '</td>' +
+            '<td>' + item.hitRate + '</td>' +
+            '<td>' + item.ratio + '</td>' +
+            '<td>' + item.disclosure + '</td>' +
+            '<td>' + sourceHtml + '</td>' +
+          '</tr>'
+        );
+      }).join('');
+      yearBodyEl.innerHTML = yearRows;
+
+      data.years.forEach((item) => {
+        const refs = (item.sourceRefs || []).map((id) => {
+          const src = sourceMap.get(id);
+          if (!src) return '';
+          return '<a class="source-tag" href="' + src.url + '" target="_blank" rel="noreferrer">来源' + id + '</a>';
+        }).join('');
+
+        const timelineHtml = item.timeline.map((entry) => '<li>' + entry + '</li>').join('');
+        const notesHtml = item.notes.map((entry) => '<li>' + entry + '</li>').join('');
+
+        const section = document.createElement('section');
+        section.className = 'card';
+        section.innerHTML =
+          '<div class="section-head">' +
+            '<span class="section-index">年份 ' + item.year + '</span>' +
+            '<h2>' + item.year + ' 年智城学校摇号详情</h2>' +
+          '</div>' +
+          '<div class="summary-line">' + item.disclosure + '</div>' +
+          '<div class="grid" style="margin-bottom: 14px;">' +
+            '<div class="mini-card"><h3>学校级结果</h3><p>' + item.status + '</p></div>' +
+            '<div class="mini-card"><h3>学位数</h3><p>' + item.seats + '</p></div>' +
+            '<div class="mini-card"><h3>报名人数</h3><p>' + item.applicants + '</p></div>' +
+            '<div class="mini-card"><h3>录取口径</h3><p>' + item.admissions + '</p></div>' +
+            '<div class="mini-card"><h3>中签率 / 报录比</h3><p>' + item.hitRate + ' ｜ ' + item.ratio + '</p></div>' +
+            '<div class="mini-card"><h3>报名条件</h3><p>' + item.conditions + '</p><div style="margin-top: 8px;">' + refs + '</div></div>' +
+          '</div>' +
+          '<div class="grid">' +
+            '<div class="mini-card"><h3>关键时间</h3><ul class="cell-list">' + timelineHtml + '</ul></div>' +
+            '<div class="mini-card"><h3>补充说明</h3><ul class="cell-list">' + notesHtml + '</ul></div>' +
+          '</div>';
+
+        detailSectionsEl.appendChild(section);
+      });
+
+      data.unknowns.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        unknownListEl.appendChild(li);
+      });
+
+      data.sources.forEach((item) => {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>来源' + item.id + '：</strong><a class="source-link" href="' + item.url + '" target="_blank" rel="noreferrer">' + item.name + '</a>';
+        sourceListEl.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>禅城区列表学校积分生学位分配（2023-2025）</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ef;
+      --brand: #0f766e;
+      --brand-soft: #ecfdf5;
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --warn: #b45309;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.09), transparent 26%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+    .wrap {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+      margin-bottom: 18px;
+    }
+    .title-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    p, li { line-height: 1.75; }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .back-link:hover,
+    .source-link:hover,
+    .source-tag:hover {
+      text-decoration: underline;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+    .note-list,
+    .source-list,
+    .cell-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+    .mini-card p,
+    .mini-card ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .section-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #d1fae5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .summary-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .warn {
+      color: var(--warn);
+      font-weight: 600;
+      margin: 8px 0 0;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    table {
+      width: 100%;
+      min-width: 1320px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    tbody td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      vertical-align: top;
+      line-height: 1.75;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    .status-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      background: #eff6ff;
+    }
+    .status-tag.no {
+      border-color: #fed7aa;
+      color: #c2410c;
+      background: #fff7ed;
+    }
+    .status-tag.unknown {
+      border-color: #d1d5db;
+      color: #4b5563;
+      background: #f3f4f6;
+    }
+    .source-tag {
+      color: #0369a1;
+      text-decoration: none;
+      margin-right: 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .source-link {
+      color: #0369a1;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .foot-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    @media (max-width: 900px) {
+      .title-bar {
+        flex-direction: column;
+      }
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="title-bar">
+        <div>
+          <h1 id="title">加载中...</h1>
+          <div class="meta" id="meta"></div>
+        </div>
+        <a class="back-link" href="./中学总纲入口.html">返回总纲入口</a>
+      </div>
+      <div>
+        <span class="badge">专题 04</span>
+        <span class="badge">禅城区 + 列表19校</span>
+        <span class="badge">积分生口径</span>
+        <span class="badge">2023-2025</span>
+      </div>
+      <p class="warn">不做跨区扩展，不做学校级人数猜测。公开数据缺失处直接标注“未公开”。</p>
+      <ul class="note-list" id="notes"></ul>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">三年总览</span>
+        <h2>积分生总量与公开度</h2>
+      </div>
+      <div class="grid" id="totalsGrid"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">重点结论</span>
+        <h2>你最关心的三件事</h2>
+      </div>
+      <div class="grid" id="highlightGrid"></div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">摇号清单</span>
+        <h2>近3年已公开摇号情况（禅城区）</h2>
+      </div>
+      <div class="summary-line" id="lotterySummary"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>摇号类型</th>
+              <th>触发条件</th>
+              <th>适用对象/学校</th>
+              <th>公开结果颗粒度</th>
+              <th>对应来源</th>
+            </tr>
+          </thead>
+          <tbody id="lotteryBody"></tbody>
+        </table>
+      </div>
+      <div class="foot-note" id="lotteryNote"></div>
+    </section>
+
+    <div id="yearSections"></div>
+
+    <section class="card">
+      <div class="section-head">
+        <span class="section-index">资料来源</span>
+        <h2>引用页面</h2>
+      </div>
+      <ul class="source-list" id="sourceList"></ul>
+      <div class="foot-note">说明：学校级报名数、录取数未公开时，页面不做估算；“推导”类信息都明确写在备注里。</div>
+    </section>
+  </div>
+
+  <script src="./佛山市禅城区公办初中学位分配（2023-2025）.data.js"></script>
+  <script>
+    (function () {
+      const data = window.__publicSeatThemeData;
+      if (!data) {
+        document.body.innerHTML = '<p style="padding:24px;font-family:sans-serif;">数据加载失败</p>';
+        return;
+      }
+
+      const sourceMap = new Map(data.sources.map((item) => [item.id, item]));
+      const titleEl = document.getElementById('title');
+      const metaEl = document.getElementById('meta');
+      const notesEl = document.getElementById('notes');
+      const totalsGridEl = document.getElementById('totalsGrid');
+      const highlightGridEl = document.getElementById('highlightGrid');
+      const lotterySummaryEl = document.getElementById('lotterySummary');
+      const lotteryBodyEl = document.getElementById('lotteryBody');
+      const lotteryNoteEl = document.getElementById('lotteryNote');
+      const yearSectionsEl = document.getElementById('yearSections');
+      const sourceListEl = document.getElementById('sourceList');
+
+      titleEl.textContent = data.meta.title;
+      metaEl.textContent = '覆盖年份：' + data.meta.yearsCovered + ' ｜ 覆盖学校：' + data.meta.schoolCount + ' 所 ｜ 页面更新时间：' + data.meta.updatedAt;
+
+      data.notes.forEach((note) => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        notesEl.appendChild(li);
+      });
+
+      const totalCards = [
+        {
+          title: '三年积分学位总量',
+          text: data.totals.totalSeats3Years + ' 个'
+        },
+        {
+          title: '分年学位',
+          text: data.totals.byYear.map((item) => item.year + '年：' + item.seats).join(' ｜ ')
+        },
+        {
+          title: '已公开补录席位',
+          text: data.totals.totalKnownSupplementSeats
+        },
+        {
+          title: '报名数据公开情况',
+          text: data.totals.applicantDisclosure
+        },
+        {
+          title: '录取数据公开情况',
+          text: data.totals.admissionDisclosure
+        }
+      ];
+
+      totalCards.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'mini-card';
+        card.innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p>';
+        totalsGridEl.appendChild(card);
+      });
+
+      data.highlights.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'mini-card';
+        card.innerHTML = '<h3>' + item.title + '</h3><p>' + item.text + '</p>';
+        highlightGridEl.appendChild(card);
+      });
+
+      if (data.lottery && Array.isArray(data.lottery.cases)) {
+        lotterySummaryEl.textContent = data.lottery.summary || '';
+        const lotteryRows = data.lottery.cases.map((item) => {
+          const sourceHtml = (item.sourceRefs || []).map((id) => {
+            const src = sourceMap.get(id);
+            if (!src) return '';
+            return '<a class="source-tag" href="' + src.url + '" target="_blank" rel="noreferrer">来源' + id + '</a>';
+          }).join('');
+
+          return (
+            '<tr>' +
+              '<td>' + item.year + '</td>' +
+              '<td><strong>' + item.type + '</strong></td>' +
+              '<td>' + item.trigger + '</td>' +
+              '<td>' + item.scope + '</td>' +
+              '<td>' + item.disclosure + '</td>' +
+              '<td>' + sourceHtml + '</td>' +
+            '</tr>'
+          );
+        }).join('');
+
+        lotteryBodyEl.innerHTML = lotteryRows;
+        lotteryNoteEl.textContent = data.lottery.note || '';
+      }
+
+      function statusClass(status) {
+        if (status.indexOf('不在本口径') !== -1) return 'status-tag no';
+        if (status.indexOf('未') !== -1 && status.indexOf('已确认') === -1) return 'status-tag unknown';
+        return 'status-tag';
+      }
+
+      data.years.forEach((yearBlock) => {
+        const section = document.createElement('section');
+        section.className = 'card';
+
+        const refs = yearBlock.sourceRefs.map((id) => sourceMap.get(id)).filter(Boolean);
+        const refHtml = refs.map((item) => '<a class="source-tag" href="' + item.url + '" target="_blank" rel="noreferrer">来源' + item.id + '</a>').join('');
+
+        const tableRows = yearBlock.schools.map((row) => {
+          const sourceHtml = row.sourceRefs.map((id) => {
+            const item = sourceMap.get(id);
+            if (!item) return '';
+            return '<a class="source-tag" href="' + item.url + '" target="_blank" rel="noreferrer">来源' + id + '</a>';
+          }).join('');
+
+          return (
+            '<tr>' +
+              '<td><div class="' + statusClass(row.status) + '">' + row.status + '</div><div><strong>' + row.school + '</strong></div></td>' +
+              '<td>' + row.seats + '</td>' +
+              '<td>' + row.applicants + '</td>' +
+              '<td>' + row.admissions + '</td>' +
+              '<td>' + row.note + '</td>' +
+              '<td>' + sourceHtml + '</td>' +
+            '</tr>'
+          );
+        }).join('');
+
+        section.innerHTML =
+          '<div class="section-head">' +
+            '<span class="section-index">年份 ' + yearBlock.year + '</span>' +
+            '<h2>' + yearBlock.year + ' 年积分生分配（仅列表学校）</h2>' +
+          '</div>' +
+          '<div class="summary-line">' + yearBlock.summary + '</div>' +
+          '<div class="grid" style="margin-bottom: 14px;">' +
+            '<div class="mini-card"><h3>区级学位总量</h3><p>' + yearBlock.overall.totalSeats + '</p></div>' +
+            '<div class="mini-card"><h3>资格范围</h3><p>' + yearBlock.overall.qualified + '</p></div>' +
+            '<div class="mini-card"><h3>报名口径</h3><p>' + yearBlock.overall.applicants + '</p></div>' +
+            '<div class="mini-card"><h3>录取口径</h3><p>' + yearBlock.overall.admissions + '</p></div>' +
+            '<div class="mini-card"><h3>补录口径</h3><p>' + yearBlock.overall.supplement + '</p><div style="margin-top: 8px;">' + refHtml + '</div></div>' +
+          '</div>' +
+          '<div class="table-wrap">' +
+            '<table>' +
+              '<thead>' +
+                '<tr>' +
+                  '<th>学校</th>' +
+                  '<th>已公开积分学位</th>' +
+                  '<th>已公开报名口径</th>' +
+                  '<th>已公开录取口径</th>' +
+                  '<th>备注</th>' +
+                  '<th>对应来源</th>' +
+                '</tr>' +
+              '</thead>' +
+              '<tbody>' + tableRows + '</tbody>' +
+            '</table>' +
+          '</div>';
+
+        yearSectionsEl.appendChild(section);
+      });
+
+      data.sources.forEach((item) => {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>来源' + item.id + '：</strong><a class="source-link" href="' + item.url + '" target="_blank" rel="noreferrer">' + item.name + '</a>';
+        sourceListEl.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>

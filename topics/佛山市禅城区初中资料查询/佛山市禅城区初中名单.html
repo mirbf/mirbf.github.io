@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>佛山市禅城区初中信息与综合口碑排名</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #0f766e;
+      --warn: #b45309;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 40%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .title-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .back-link {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+    .section-stats {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .summary-box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fcfdff;
+    }
+    .summary-box h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .summary-box p {
+      margin: 4px 0;
+    }
+    .summary-box strong {
+      color: var(--brand);
+    }
+    p, li { line-height: 1.6; }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #d1fae5;
+      color: #065f46;
+      background: #ecfdf5;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .warn {
+      color: var(--warn);
+      font-weight: 600;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1180px;
+      background: #fff;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    tbody td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tbody tr {
+      scroll-margin-top: 80px;
+    }
+    tbody tr:hover { background: #f9fafb; }
+    tbody tr:target {
+      background: #ecfeff;
+    }
+    .rank { font-weight: 700; color: var(--brand); }
+    .muted { color: var(--muted); }
+    .small { font-size: 12px; color: var(--muted); }
+    .ref {
+      color: #0369a1;
+      text-decoration: none;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+    .ref:hover { text-decoration: underline; }
+    .map-link {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+    .map-link:hover { text-decoration: underline; }
+    .sources a {
+      color: #0369a1;
+      text-decoration: none;
+    }
+    .sources a:hover { text-decoration: underline; }
+    .term-intro {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border: 1px solid #dbeafe;
+      background: #f8fbff;
+      border-radius: 10px;
+    }
+    .term-intro h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .term-intro ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .score-cell {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="title-bar">
+        <h1 id="title">加载中...</h1>
+        <a class="back-link" href="./中学总纲入口.html">返回总纲入口</a>
+      </div>
+      <div class="meta" id="meta"></div>
+      <p>
+        <span class="badge">公办、民办分开列举</span>
+        <span class="badge">统一综合排名</span>
+        <span class="badge">缺失数据单独说明</span>
+      </p>
+      <p class="warn" id="disclaimer"></p>
+      <h2>计算标准</h2>
+      <ul id="rules"></ul>
+      <div class="small" id="formula"></div>
+      <div class="term-intro">
+        <h3>评分名词说明</h3>
+        <ul>
+          <li><strong>办学成绩（60%）</strong>：主要看近年升学表现、区市学业质量结果、竞赛和特色成果等公开可核验结果。</li>
+          <li><strong>社会口碑（20%）</strong>：主要看家长和学生反馈、社会评价稳定性、学校争议情况等公开可见口碑信息。</li>
+          <li><strong>办学实力（20%）</strong>：主要看学校历史、师资配置、校园硬件、集团化或名校资源等综合支撑能力。</li>
+        </ul>
+        <div class="small">表格内展示格式：办学成绩，社会口碑，办学实力 = 综合得分</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>公办初中（按统一排名展示）<span class="section-stats" id="publicStats"></span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>统一排名</th>
+              <th>学校名称</th>
+              <th>办学性质</th>
+              <th>初一班数</th>
+              <th>学校地址</th>
+              <th>咨询电话</th>
+              <th>校园面积（万㎡ / 亩）</th>
+              <th>开始办学年份</th>
+              <th>是否带高中</th>
+              <th>评分明细</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody id="publicRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>民办初中（按统一排名展示）<span class="section-stats" id="privateStats"></span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>统一排名</th>
+              <th>学校名称</th>
+              <th>办学性质</th>
+              <th>初一班数</th>
+              <th>学校地址</th>
+              <th>咨询电话</th>
+              <th>校园面积（万㎡ / 亩）</th>
+              <th>开始办学年份</th>
+              <th>是否带高中</th>
+              <th>评分明细</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody id="privateRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>初一规模统计</h2>
+      <div class="summary-grid">
+        <div class="summary-box" id="totalSummary"></div>
+        <div class="summary-box" id="publicSummary"></div>
+        <div class="summary-box" id="privateSummary"></div>
+      </div>
+    </section>
+
+    <section class="card sources">
+      <h2>主要来源</h2>
+      <ul id="sources"></ul>
+      <p class="small">说明：本页面当前使用 <code>data.js</code> + 主题2分片数据脚本驱动渲染，支持直接双击打开本地 HTML 文件。</p>
+    </section>
+  </div>
+
+  <script src="./佛山市禅城区初中名单.data.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.core.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.public.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.private.js"></script>
+  <script src="./佛山市禅城区小升初信息与操作指南.data.js"></script>
+  <script>
+    let sourceList = [];
+    let consultPhoneMap = new Map();
+
+    function displayValue(v) {
+      return (v === null || v === undefined || v === "") ? "未公开" : v;
+    }
+
+    function normalizeName(name) {
+      return String(name || "")
+        .replace(/（.*?）/g, "")
+        .replace(/\(.*?\)/g, "")
+        .replace(/\s+/g, "")
+        .trim();
+    }
+
+    function schoolAnchorId(name) {
+      return `school-${normalizeName(name)}`;
+    }
+
+    function formatArea(sqm) {
+      if (sqm === null || sqm === undefined || sqm === "") {
+        return "未公开";
+      }
+      const wanSqm = (Number(sqm) / 10000).toFixed(2);
+      const mu = (Number(sqm) / 666.6666667).toFixed(2);
+      return `<div>${wanSqm}万平方米</div><div class="small">${mu}亩</div>`;
+    }
+
+    function sourceRefsByText(text) {
+      if (!text) return "";
+      const refs = [];
+      const s = String(text);
+      const pushByName = (pattern, nameFragment) => {
+        if (!pattern.test(s)) return;
+        const idx = sourceList.findIndex(item => item.name.includes(nameFragment));
+        if (idx !== -1) refs.push(idx + 1);
+      };
+
+      pushByName(/附件5|公办初中招生计划表/, "2026年禅城区公办初中招生工作方案");
+      pushByName(/民办义务教育学校招生工作方案|民办招生方案/, "2026年禅城区民办义务教育学校招生工作方案");
+      pushByName(/协议直招细则|附件2/, "附件2：2026年禅城区民办义务教育学校协议直招细则");
+      pushByName(/公开招聘公告|2026年公开招聘教师公告/, "佛山市华英学校2026年公开招聘教师公告");
+      pushByName(/华英学校招生方案|940人/, "2026年佛山市华英学校招生方案");
+      pushByName(/广东省义务教育标准化学校标准|初中班额不超过50人|初中班额≤50人/, "广东省人民政府关于统筹推进县域内城乡义务教育一体化改革发展的实施意见");
+      pushByName(/佛山市实验学校公开简介页|十二年一贯制/, "佛山市实验学校公开简介页");
+      pushByName(/外国语学校（学校秀）|school_id=708|950人/, "佛山市外国语学校（学校秀）2025学年招生计划");
+      pushByName(/明德中英文学校（学校秀）|school_id=772|530人/, "佛山市禅城区明德中英文学校（学校秀）2025学年招生计划");
+      pushByName(/培立实验学校（学校秀）|school_id=1078|200人/, "佛山市禅城区培立实验学校（学校秀）2025学年招生计划");
+      pushByName(/协同学校学区查询页|协同学校.*600人/, "佛山市禅城区协同学校学区查询页");
+      pushByName(/颖林学校学区查询页|颖林学校.*181人/, "禅城区颖林学校学区查询页");
+      pushByName(/东方村尾学校学区查询页|东方村尾学校.*188/, "佛山市禅城区东方村尾学校学区查询页");
+      pushByName(/东方河宕学校学区查询页|东方河宕学校.*300人/, "佛山市禅城区东方河宕学校学区查询页");
+      pushByName(/新蕾塘头学校学区查询页|新蕾塘头学校.*注册时间/, "禅城区新蕾塘头学校学区查询页");
+      pushByName(/佛山市第四中学（学校秀）|school_id=662|初中\/高中/, "佛山市第四中学（学校秀）学校概况");
+
+      const uniq = [...new Set(refs)].sort((a, b) => a - b);
+      return uniq.map(i => `<a class="ref" href="#src-${i}" title="查看参考文献[${i}]">[${i}]</a>`).join("");
+    }
+
+    function classText(row) {
+      const classRefs = sourceRefsByText(row.grade7_classes_source);
+      const studentsRefs = sourceRefsByText(row.grade7_students_source);
+      const isEstimated = /估算|估计|推算/.test(String(row.grade7_classes_source || ""));
+      const studentEstimated = /估算|估计|推算|按50人\/班/.test(String(row.grade7_students_source || ""));
+      const classLine = (row.grade7_classes === null || row.grade7_classes === undefined)
+        ? `未公开 ${classRefs}`
+        : `${row.grade7_classes}${isEstimated ? "（估）" : ""} ${classRefs}`;
+      const studentsLine = (row.grade7_students === null || row.grade7_students === undefined)
+        ? `人数未公开 ${studentsRefs}`
+        : `${row.grade7_students}人${studentEstimated ? "（估）" : ""} ${studentsRefs}`;
+      return `<div>${classLine}</div><div class="small">${studentsLine}</div>`;
+    }
+
+    function highSchoolText(row) {
+      const refs = sourceRefsByText(row.high_school_source);
+      return `${displayValue(row.has_high_school)} ${refs}`;
+    }
+
+    function formatScoreValue(v) {
+      if (v === null || v === undefined || v === "") return "未公开";
+      const n = Number(v);
+      return Number.isInteger(n) ? String(n) : String(n);
+    }
+
+    function scoreSummary(row) {
+      const achievement = formatScoreValue(row.score_achievement);
+      const reputation = formatScoreValue(row.score_reputation);
+      const strength = formatScoreValue(row.score_strength);
+      const total = formatScoreValue(row.score_total);
+      return `${achievement}，${reputation}，${strength} = <strong>${total}</strong>`;
+    }
+
+    function sumField(rows, key) {
+      return rows.reduce((sum, row) => {
+        const value = Number(row[key]);
+        return Number.isFinite(value) ? sum + value : sum;
+      }, 0);
+    }
+
+    function formatPercent(numerator, denominator) {
+      if (!denominator) return "0.00";
+      return ((numerator / denominator) * 100).toFixed(2);
+    }
+
+    function addressCell(row) {
+      const hasAddress = row.address && row.address !== "未公开";
+      const label = hasAddress ? row.address : "未公开（点击在百度地图搜索学校）";
+      const query = `佛山市禅城区 ${row.name}`;
+      const href = hasAddress
+        ? `https://api.map.baidu.com/geocoder?address=${encodeURIComponent(row.address)}&output=html&src=school-list`
+        : `https://map.baidu.com/?l=&s=s%26wd%3D${encodeURIComponent(query)}`;
+      return `<a class="map-link" href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
+    function buildConsultPhoneMap(guideData) {
+      const map = new Map();
+      if (!guideData) return map;
+      ["public_schools", "private_schools"].forEach(key => {
+        (guideData[key] || []).forEach(item => {
+          const phone = item.consult_phone;
+          (item.ranking_aliases || []).forEach(alias => {
+            map.set(normalizeName(alias), phone);
+          });
+        });
+      });
+      return map;
+    }
+
+    function consultPhoneText(row) {
+      const phone = consultPhoneMap.get(normalizeName(row.name));
+      return displayValue(phone);
+    }
+
+    function renderRow(row) {
+      return `
+        <tr id="${schoolAnchorId(row.name)}">
+          <td class="rank">#${row.rank_overall}</td>
+          <td>${row.name}</td>
+          <td>${row.school_type}${row.scope ? `（${row.scope}）` : ""}</td>
+          <td>${classText(row)}</td>
+          <td>${addressCell(row)}</td>
+          <td>${consultPhoneText(row)}</td>
+          <td>${formatArea(row.campus_area_sqm)}</td>
+          <td>${displayValue(row.founding_year)}</td>
+          <td>${highSchoolText(row)}</td>
+          <td class="score-cell">${scoreSummary(row)}</td>
+          <td>${displayValue(row.notes)}</td>
+        </tr>
+      `;
+    }
+
+    async function loadData() {
+      if (window.__schoolData) {
+        return window.__schoolData;
+      }
+      throw new Error("数据加载失败：未找到内置数据脚本");
+    }
+
+    (async function init() {
+      try {
+        const data = await loadData();
+        const { meta, schools } = data;
+        sourceList = meta.sources || [];
+        consultPhoneMap = buildConsultPhoneMap(window.__schoolGuideData);
+
+        document.getElementById("title").textContent = meta.title;
+        document.getElementById("meta").textContent = `更新时间：${meta.updated_at} ｜ 学校总数：${meta.school_count}`;
+        document.getElementById("disclaimer").textContent = meta.disclaimer;
+        document.getElementById("formula").textContent = `公式：${meta.ranking_method.formula}`;
+
+        const ruleBox = document.getElementById("rules");
+        meta.ranking_method.rules.forEach(rule => {
+          const li = document.createElement("li");
+          li.textContent = rule;
+          ruleBox.appendChild(li);
+        });
+
+        const publicRows = schools.filter(s => s.school_type === "公办").sort((a, b) => a.rank_overall - b.rank_overall);
+        const privateRows = schools.filter(s => s.school_type === "民办").sort((a, b) => a.rank_overall - b.rank_overall);
+        const totalGrade7Students = sumField(schools, "grade7_students");
+        const publicGrade7Classes = sumField(publicRows, "grade7_classes");
+        const publicGrade7Students = sumField(publicRows, "grade7_students");
+        const privateGrade7Classes = sumField(privateRows, "grade7_classes");
+        const privateGrade7Students = sumField(privateRows, "grade7_students");
+
+        document.getElementById("publicRows").innerHTML = publicRows.map(renderRow).join("");
+        document.getElementById("privateRows").innerHTML = privateRows.map(renderRow).join("");
+        document.getElementById("publicStats").textContent = `｜ 初一总班数 ${publicGrade7Classes} 班 ｜ 初一总人数 ${publicGrade7Students} 人 ｜ 公办占全区初一人数 ${formatPercent(publicGrade7Students, totalGrade7Students)}%`;
+        document.getElementById("privateStats").textContent = `｜ 初一总班数 ${privateGrade7Classes} 班 ｜ 初一总人数 ${privateGrade7Students} 人 ｜ 民办占全区初一人数 ${formatPercent(privateGrade7Students, totalGrade7Students)}%`;
+        document.getElementById("totalSummary").innerHTML = `
+          <h3>全区合计</h3>
+          <p>学校总数：<strong>${schools.length}</strong> 所</p>
+          <p>初一总班数：<strong>${publicGrade7Classes + privateGrade7Classes}</strong> 班</p>
+          <p>初一总人数：<strong>${totalGrade7Students}</strong> 人</p>
+        `;
+        document.getElementById("publicSummary").innerHTML = `
+          <h3>公办汇总</h3>
+          <p>学校数量：<strong>${publicRows.length}</strong> 所</p>
+          <p>初一总班数：<strong>${publicGrade7Classes}</strong> 班</p>
+          <p>初一总人数：<strong>${publicGrade7Students}</strong> 人</p>
+          <p>人数占比：<strong>${formatPercent(publicGrade7Students, totalGrade7Students)}%</strong></p>
+        `;
+        document.getElementById("privateSummary").innerHTML = `
+          <h3>民办汇总</h3>
+          <p>学校数量：<strong>${privateRows.length}</strong> 所</p>
+          <p>初一总班数：<strong>${privateGrade7Classes}</strong> 班</p>
+          <p>初一总人数：<strong>${privateGrade7Students}</strong> 人</p>
+          <p>人数占比：<strong>${formatPercent(privateGrade7Students, totalGrade7Students)}%</strong></p>
+        `;
+
+        const src = document.getElementById("sources");
+        meta.sources.forEach((item, idx) => {
+          const no = idx + 1;
+          const li = document.createElement("li");
+          li.id = `src-${no}`;
+          li.innerHTML = `[${no}] <a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.name}</a>`;
+          src.appendChild(li);
+        });
+      } catch (err) {
+        document.body.innerHTML = `<div style="max-width:800px;margin:40px auto;font-family:Arial,sans-serif;line-height:1.6;">
+          <h2>页面加载失败</h2>
+          <p>${err.message}</p>
+          <p>请在该目录启动本地服务后再访问本页面：</p>
+          <pre>python3 -m http.server 8000</pre>
+        </div>`;
+      }
+    })();
+  </script>
+</body>
+</html>
