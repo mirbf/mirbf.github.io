@@ -55,6 +55,9 @@
     │   ├── navigation.js
     │   └── china/
     │       └── ...
+    ├── 工具/
+    │   ├── index.html
+    │   └── 高清透视变形工具 - 自由拖拽四角 (清晰预览).html
     └── 佛山市禅城区初中资料查询/
         ├── 中学总纲入口.html
         ├── 佛山市禅城区初中名单.html
@@ -76,6 +79,7 @@
 ## 当前专题入口
 
 - `topics/OPC/index.html`
+- `topics/工具/index.html`
 - `topics/佛山市禅城区初中资料查询/中学总纲入口.html`
 - `香料园` 当前未接入这个公开站点
 
@@ -87,6 +91,7 @@
 - 不展示“进入专题”按钮文案。
 - 点击专题卡片后，在新浏览器标签页打开专题入口。
 - 首页是薄层导航，不承担专题简介页、专题索引页、专题结构页的职责。
+- 当前首页已接入三个主题：`OPC`、`佛山市禅城区初中资料查询`、`工具`
 
 ## 已知实现细节
 
@@ -198,6 +203,8 @@ git push
 
 - 主站首页：`https://mirbf.github.io/`
 - OPC 专题入口：`https://mirbf.github.io/topics/OPC/index.html`
+- 工具主题入口：`https://mirbf.github.io/topics/工具/index.html`
+- 图片透视工具：`https://mirbf.github.io/topics/工具/高清透视变形工具%20-%20自由拖拽四角%20(清晰预览).html`
 - 佛山市禅城区初中资料查询入口：`https://mirbf.github.io/topics/佛山市禅城区初中资料查询/中学总纲入口.html`
 
 推送后可按下面顺序检查：

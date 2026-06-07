@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>高清透视变形工具 - 自由拖拽四角 (清晰预览)</title>
+    <style>
+        * {
+            user-select: none;
+        }
+        body {
+            background: linear-gradient(145deg, #1e2b32 0%, #0f1a1f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .glass-panel {
+            background: rgba(25, 35, 45, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .workspace {
+            background: #111a20;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button, .file-label {
+            background: #2c3e4e;
+            border: none;
+            padding: 10px 26px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+        .file-label:hover, button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+            box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+        }
+        .file-label:active, button:active {
+            transform: translateY(1px);
+        }
+        .save-btn {
+            background: #2a6e4b;
+        }
+        .reset-btn {
+            background: #8b5a2b;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border-radius: 20px;
+            cursor: grab;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            width: 100%;
+            height: auto;
+            background: repeating-conic-gradient(#2a3a44 0% 25%, #1f2e36 0% 50%) 50% / 24px 24px;
+        }
+        canvas:active {
+            cursor: grabbing;
+        }
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+        }
+        .badge {
+            font-size: 0.75rem;
+            background: #0f1a1f;
+            padding: 4px 14px;
+            border-radius: 30px;
+            color: #bbd4f0;
+        }
+        .info-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #cfe2f0;
+        }
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 12px;
+            color: #7e9bb0;
+        }
+        @media (max-width: 700px) {
+            button, .file-label { padding: 6px 16px; font-size: 0.8rem; }
+            .badge { font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="glass-panel">
+    <div class="workspace">
+        <div class="toolbar">
+            <label class="file-label">
+                📷 选择图片
+                <input type="file" id="imageUploader" accept="image/jpeg,image/png,image/webp,image/bmp" style="display: none;">
+            </label>
+            <button id="saveImageBtn" class="save-btn">💾 保存变形图片 (PNG)</button>
+            <button id="resetShapeBtn" class="reset-btn">⟳ 重置矩形</button>
+        </div>
+        <canvas id="warpCanvas" width="800" height="600" style="width:100%; height:auto; max-width:100%;"></canvas>
+        <div class="info-bar">
+            <div class="badge">✨ 高清透视变换 · 画布匹配原图分辨率</div>
+            <div class="info-text">🎯 拖拽任意彩色圆点 → 图片清晰平滑变形</div>
+        </div>
+        <footer>⚡ 画布分辨率接近原图，预览清晰；保存图片即所见即所得</footer>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ---------- DOM 元素 ----------
+        const canvas = document.getElementById('warpCanvas');
+        const ctx = canvas.getContext('2d');
+        const fileInput = document.getElementById('imageUploader');
+        const saveBtn = document.getElementById('saveImageBtn');
+        const resetBtn = document.getElementById('resetShapeBtn');
+        
+        // ---------- 全局数据 ----------
+        let originalImg = null;
+        let imgWidth = 0, imgHeight = 0;
+        let imageLoaded = false;
+        
+        // 源四边形 (原始图片像素坐标)
+        let srcQuad = [
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 }
+        ];
+        
+        // 目标四边形 (canvas坐标)
+        let dstQuad = [
+            { x: 150, y: 100 },
+            { x: 650, y: 100 },
+            { x: 150, y: 500 },
+            { x: 650, y: 500 }
+        ];
+        
+        const CTRL_RADIUS = 14;
+        let draggingIndex = -1;
+        let isDragging = false;
+        
+        let originalImageData = null;   // 原图像素缓存
+        
+        // ---------- 根据原图设置画布尺寸 (保证清晰) ----------
+        // 限制最大宽度 1400px，避免超大图片导致性能下降，同时保证清晰度足够
+        function setCanvasSizeFromImage() {
+            if (!originalImg) return;
+            let maxCanvasWidth = 1400;   // 你可以调整这个值，越大越清晰但拖动可能稍慢（现代设备1400流畅）
+            let targetW = Math.min(imgWidth, maxCanvasWidth);
+            let targetH = (targetW / imgWidth) * imgHeight;
+            canvas.width = Math.floor(targetW);
+            canvas.height = Math.floor(targetH);
+        }
+        
+        // 计算图片居中矩形 (初始无变形状态)
+        function getInitialRect() {
+            return { x: 0, y: 0, w: canvas.width, h: canvas.height };
+        }
+        
+        function resetToRectangle() {
+            if (!imageLoaded) return;
+            const rect = getInitialRect();
+            dstQuad = [
+                { x: rect.x, y: rect.y },
+                { x: rect.x + rect.w, y: rect.y },
+                { x: rect.x, y: rect.y + rect.h },
+                { x: rect.x + rect.w, y: rect.y + rect.h }
+            ];
+            renderPerspectiveWarp();
+        }
+        
+        function updateSrcQuad() {
+            if (originalImg) {
+                srcQuad[0] = { x: 0, y: 0 };
+                srcQuad[1] = { x: imgWidth, y: 0 };
+                srcQuad[2] = { x: 0, y: imgHeight };
+                srcQuad[3] = { x: imgWidth, y: imgHeight };
+            }
+        }
+        
+        // ---------- 单应性矩阵 (与之前相同，稳定版本) ----------
+        function computeHomography(src, dst) {
+            const n = src.length;
+            function normalizePoints(points) {
+                let cx = 0, cy = 0;
+                for (let p of points) { cx += p.x; cy += p.y; }
+                cx /= n; cy /= n;
+                let sumDist = 0;
+                for (let p of points) sumDist += Math.hypot(p.x - cx, p.y - cy);
+                const scale = Math.sqrt(2) * n / sumDist;
+                const T = [scale, 0, -scale * cx, 0, scale, -scale * cy, 0, 0, 1];
+                const transformed = points.map(p => ({ x: scale * (p.x - cx), y: scale * (p.y - cy) }));
+                return { transformed, T };
+            }
+            const srcNorm = normalizePoints(src);
+            const dstNorm = normalizePoints(dst);
+            const srcPts = srcNorm.transformed;
+            const dstPts = dstNorm.transformed;
+            const T_src = srcNorm.T;
+            const T_dst = dstNorm.T;
+            
+            const A = [];
+            for (let i = 0; i < n; i++) {
+                const x = srcPts[i].x, y = srcPts[i].y;
+                const u = dstPts[i].x, v = dstPts[i].y;
+                A.push([ x, y, 1, 0, 0, 0, -u * x, -u * y ]);
+                A.push([ 0, 0, 0, x, y, 1, -v * x, -v * y ]);
+            }
+            const B = [];
+            for (let i = 0; i < n; i++) { B.push(dstPts[i].x); B.push(dstPts[i].y); }
+            
+            function transpose(m) {
+                const rows = m.length, cols = m[0].length;
+                const res = Array(cols).fill().map(() => Array(rows));
+                for (let i = 0; i < rows; i++)
+                    for (let j = 0; j < cols; j++)
+                        res[j][i] = m[i][j];
+                return res;
+            }
+            function multiply(A, B) {
+                const m = A.length, n = A[0].length, p = B[0].length;
+                const C = Array(m).fill().map(() => Array(p).fill(0));
+                for (let i = 0; i < m; i++)
+                    for (let j = 0; j < p; j++)
+                        for (let k = 0; k < n; k++)
+                            C[i][j] += A[i][k] * B[k][j];
+                return C;
+            }
+            function multiplyVector(A, v) {
+                const m = A.length, n = A[0].length;
+                const res = Array(m).fill(0);
+                for (let i = 0; i < m; i++)
+                    for (let j = 0; j < n; j++)
+                        res[i] += A[i][j] * v[j];
+                return res;
+            }
+            function solveLinear8(A, b) {
+                const n = 8;
+                const M = A.map(row => [...row]);
+                const B = [...b];
+                for (let i = 0; i < n; i++) {
+                    let maxRow = i;
+                    for (let k = i+1; k < n; k++) if (Math.abs(M[k][i]) > Math.abs(M[maxRow][i])) maxRow = k;
+                    if (Math.abs(M[maxRow][i]) < 1e-10) return null;
+                    if (maxRow !== i) { [M[i], M[maxRow]] = [M[maxRow], M[i]]; [B[i], B[maxRow]] = [B[maxRow], B[i]]; }
+                    const div = M[i][i];
+                    for (let j = i; j < n; j++) M[i][j] /= div;
+                    B[i] /= div;
+                    for (let k = i+1; k < n; k++) {
+                        const factor = M[k][i];
+                        if (factor === 0) continue;
+                        for (let j = i; j < n; j++) M[k][j] -= factor * M[i][j];
+                        B[k] -= factor * B[i];
+                    }
+                }
+                const x = new Array(n);
+                for (let i = n-1; i >= 0; i--) {
+                    x[i] = B[i];
+                    for (let j = i+1; j < n; j++) x[i] -= M[i][j] * x[j];
+                }
+                return x;
+            }
+            const At = transpose(A);
+            const AtA = multiply(At, A);
+            const AtB = multiplyVector(At, B);
+            let h8 = solveLinear8(AtA, AtB);
+            if (!h8) return [1,0,0, 0,1,0, 0,0,1];
+            let H_raw = [h8[0], h8[1], h8[2], h8[3], h8[4], h8[5], h8[6], h8[7], 1.0];
+            
+            function mat3x3Multiply(A, B) {
+                const C = [0,0,0,0,0,0,0,0,0];
+                for (let i = 0; i < 3; i++)
+                    for (let j = 0; j < 3; j++)
+                        for (let k = 0; k < 3; k++)
+                            C[i*3 + j] += A[i*3 + k] * B[k*3 + j];
+                return C;
+            }
+            function inv3x3(m) {
+                const a=m[0],b=m[1],c=m[2],d=m[3],e=m[4],f=m[5],g=m[6],h=m[7],i=m[8];
+                const det = a*(e*i - f*h) - b*(d*i - f*g) + c*(d*h - e*g);
+                if (Math.abs(det) < 1e-8) return [1,0,0,0,1,0,0,0,1];
+                const invDet = 1/det;
+                return [(e*i-f*h)*invDet, (c*h-b*i)*invDet, (b*f-c*e)*invDet,
+                        (f*g-d*i)*invDet, (a*i-c*g)*invDet, (c*d-a*f)*invDet,
+                        (d*h-e*g)*invDet, (b*g-a*h)*invDet, (a*e-b*d)*invDet];
+            }
+            const invT_dst = inv3x3(T_dst);
+            const H_normMat = [H_raw[0], H_raw[1], H_raw[2], H_raw[3], H_raw[4], H_raw[5], H_raw[6], H_raw[7], H_raw[8]];
+            const tmp = mat3x3Multiply(H_normMat, T_src);
+            const H = mat3x3Multiply(invT_dst, tmp);
+            const scaleH = H[8];
+            if (Math.abs(scaleH) > 1e-8) for (let i = 0; i < 9; i++) H[i] /= scaleH;
+            return H;
+        }
+        
+        // 渲染透视变换 (高清版)
+        function renderPerspectiveWarp() {
+            if (!imageLoaded || !originalImageData) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#111a20";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                return;
+            }
+            
+            try {
+                const H = computeHomography(srcQuad, dstQuad);
+                const w = canvas.width, h = canvas.height;
+                const imgW = imgWidth, imgH = imgHeight;
+                const imgData = originalImageData.data;
+                const outputData = ctx.createImageData(w, h);
+                const outBuf = outputData.data;
+                
+                function invertHomography(H) {
+                    const a=H[0],b=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],hh=H[7],i=H[8];
+                    const det = a*(e*i - f*hh) - b*(d*i - f*g) + c*(d*hh - e*g);
+                    if (Math.abs(det) < 1e-8) return [1,0,0,0,1,0,0,0,1];
+                    const invDet = 1/det;
+                    return [(e*i-f*hh)*invDet, (c*hh-b*i)*invDet, (b*f-c*e)*invDet,
+                            (f*g-d*i)*invDet, (a*i-c*g)*invDet, (c*d-a*f)*invDet,
+                            (d*hh-e*g)*invDet, (b*g-a*hh)*invDet, (a*e-b*d)*invDet];
+                }
+                const H_inv = invertHomography(H);
+                
+                function sampleBilinear(x, y) {
+                    if (x < 0 || x >= imgW || y < 0 || y >= imgH) return [0,0,0,0];
+                    const xi = Math.floor(x), yi = Math.floor(y);
+                    const fx = x - xi, fy = y - yi;
+                    const xi1 = Math.min(xi+1, imgW-1), yi1 = Math.min(yi+1, imgH-1);
+                    const idx00 = (yi * imgW + xi) * 4;
+                    const idx10 = (yi * imgW + xi1) * 4;
+                    const idx01 = (yi1 * imgW + xi) * 4;
+                    const idx11 = (yi1 * imgW + xi1) * 4;
+                    const r00=imgData[idx00], g00=imgData[idx00+1], b00=imgData[idx00+2], a00=imgData[idx00+3];
+                    const r10=imgData[idx10], g10=imgData[idx10+1], b10=imgData[idx10+2], a10=imgData[idx10+3];
+                    const r01=imgData[idx01], g01=imgData[idx01+1], b01=imgData[idx01+2], a01=imgData[idx01+3];
+                    const r11=imgData[idx11], g11=imgData[idx11+1], b11=imgData[idx11+2], a11=imgData[idx11+3];
+                    const r = (1-fx)*(1-fy)*r00 + fx*(1-fy)*r10 + (1-fx)*fy*r01 + fx*fy*r11;
+                    const g = (1-fx)*(1-fy)*g00 + fx*(1-fy)*g10 + (1-fx)*fy*g01 + fx*fy*g11;
+                    const b = (1-fx)*(1-fy)*b00 + fx*(1-fy)*b10 + (1-fx)*fy*b01 + fx*fy*b11;
+                    const a = (1-fx)*(1-fy)*a00 + fx*(1-fy)*a10 + (1-fx)*fy*a01 + fx*fy*a11;
+                    return [Math.round(r), Math.round(g), Math.round(b), Math.round(a)];
+                }
+                
+                for (let y = 0; y < h; y++) {
+                    for (let x = 0; x < w; x++) {
+                        const denom = H_inv[6] * x + H_inv[7] * y + H_inv[8];
+                        if (Math.abs(denom) < 1e-6) continue;
+                        const u = (H_inv[0] * x + H_inv[1] * y + H_inv[2]) / denom;
+                        const v = (H_inv[3] * x + H_inv[4] * y + H_inv[5]) / denom;
+                        const [r,g,b,a] = sampleBilinear(u, v);
+                        const idx = (y * w + x) * 4;
+                        outBuf[idx] = r; outBuf[idx+1] = g; outBuf[idx+2] = b; outBuf[idx+3] = a;
+                    }
+                }
+                ctx.putImageData(outputData, 0, 0);
+                drawControlsAndHelpers();
+            } catch(err) {
+                console.error(err);
+                ctx.fillStyle = "#111a20";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#ffaa88";
+                ctx.fillText("变形计算错误，请重置或重新上传", canvas.width/2-150, canvas.height/2);
+            }
+        }
+        
+        function drawControlsAndHelpers() {
+            if (!imageLoaded) return;
+            ctx.save();
+            ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.setLineDash([6, 8]);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#f0f9ffcc";
+            ctx.moveTo(dstQuad[0].x, dstQuad[0].y);
+            ctx.lineTo(dstQuad[1].x, dstQuad[1].y);
+            ctx.lineTo(dstQuad[3].x, dstQuad[3].y);
+            ctx.lineTo(dstQuad[2].x, dstQuad[2].y);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.setLineDash([]);
+            const colors = ["#FF5E5E", "#FFB347", "#5D9BEC", "#5FCB6E"];
+            for (let i = 0; i < dstQuad.length; i++) {
+                const p = dstQuad[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, CTRL_RADIUS, 0, Math.PI*2);
+                ctx.fillStyle = colors[i];
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = "rgba(0,0,0,0.6)";
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, CTRL_RADIUS-3, 0, Math.PI*2);
+                ctx.fillStyle = "white";
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, CTRL_RADIUS-6, 0, Math.PI*2);
+                ctx.fillStyle = colors[i];
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, CTRL_RADIUS, 0, Math.PI*2);
+                ctx.lineWidth = 2.2;
+                ctx.strokeStyle = "#ffffffdd";
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+        
+        function cacheImageData() {
+            if (!originalImg) return;
+            const offCanvas = document.createElement('canvas');
+            offCanvas.width = imgWidth;
+            offCanvas.height = imgHeight;
+            const offCtx = offCanvas.getContext('2d');
+            offCtx.drawImage(originalImg, 0, 0);
+            originalImageData = offCtx.getImageData(0, 0, imgWidth, imgHeight);
+        }
+        
+        // 加载图片：先设置画布尺寸为高清，再缓存数据，最后渲染
+        function loadImageFromFile(file) {
+            if (!file || !file.type.match('image.*')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    originalImg = img;
+                    imgWidth = img.width;
+                    imgHeight = img.height;
+                    imageLoaded = true;
+                    // 关键: 根据原图设置画布大小 (保证预览清晰)
+                    setCanvasSizeFromImage();
+                    updateSrcQuad();
+                    cacheImageData();
+                    resetToRectangle();      // 重置四边形适配新画布
+                    renderPerspectiveWarp();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // 保存图片 (所见即所得，直接保存画布)
+        function saveDeformedImage() {
+            if (!imageLoaded) {
+                alert("请先选择图片");
+                return;
+            }
+            const link = document.createElement('a');
+            link.download = 'perspective_warp_hd.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // ---------- 拖拽交互 ----------
+        function getCanvasCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let clientX, clientY;
+            if (e.touches) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
+            else { clientX = e.clientX; clientY = e.clientY; }
+            let x = (clientX - rect.left) * scaleX;
+            let y = (clientY - rect.top) * scaleY;
+            x = Math.min(Math.max(0, x), canvas.width);
+            y = Math.min(Math.max(0, y), canvas.height);
+            return { x, y };
+        }
+        function findPointIndex(x, y) {
+            for (let i=0; i<dstQuad.length; i++) {
+                if (Math.hypot(dstQuad[i].x - x, dstQuad[i].y - y) <= CTRL_RADIUS+8) return i;
+            }
+            return -1;
+        }
+        function onPointerDown(e) {
+            e.preventDefault();
+            if (!imageLoaded) return;
+            const { x, y } = getCanvasCoords(e);
+            draggingIndex = findPointIndex(x, y);
+            if (draggingIndex !== -1) isDragging = true;
+            canvas.style.cursor = 'grabbing';
+        }
+        function onPointerMove(e) {
+            if (!isDragging || draggingIndex === -1 || !imageLoaded) return;
+            e.preventDefault();
+            let { x, y } = getCanvasCoords(e);
+            x = Math.min(Math.max(8, x), canvas.width-8);
+            y = Math.min(Math.max(8, y), canvas.height-8);
+            dstQuad[draggingIndex] = { x, y };
+            renderPerspectiveWarp();
+        }
+        function onPointerUp() {
+            if (isDragging) { isDragging = false; draggingIndex = -1; canvas.style.cursor = 'grab'; renderPerspectiveWarp(); }
+        }
+        
+        // 事件绑定
+        canvas.addEventListener('mousedown', onPointerDown);
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mouseup', onPointerUp);
+        canvas.addEventListener('touchstart', onPointerDown, { passive: false });
+        window.addEventListener('touchmove', onPointerMove, { passive: false });
+        window.addEventListener('touchend', onPointerUp);
+        canvas.style.cursor = 'grab';
+        
+        fileInput.addEventListener('change', (e) => { if(e.target.files[0]) loadImageFromFile(e.target.files[0]); fileInput.value = ''; });
+        saveBtn.addEventListener('click', saveDeformedImage);
+        resetBtn.addEventListener('click', () => { if(imageLoaded) { resetToRectangle(); renderPerspectiveWarp(); } });
+        
+        // 初始占位
+        ctx.fillStyle = "#111a20";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    })();
+</script>
+</body>
+</html>
