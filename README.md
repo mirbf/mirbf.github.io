@@ -154,6 +154,74 @@ python3 -m http.server 8080
 - `.nojekyll` 继续保留。
 - 发布前再次确认仓库内不存在不适宜公开的文件。
 
+## GitHub Pages 限制
+
+这个站点当前依赖 GitHub Pages，后续维护时必须记住这些边界：
+
+- GitHub Pages 本质上是静态站托管，只适合 `HTML`、`CSS`、`JS`、图片、数据文件等静态资源。
+- 它不提供服务端程序、数据库、登录后端、权限控制接口。
+- 当前这个仓库里的文件一旦推送并发布，理论上都可能被直接访问，首页不展示不等于外部不可访问。
+- 因此，这个仓库只能放确定可公开的内容。
+- 用户主页站点仓库名必须匹配账号名，例如当前站点使用 `mirbf.github.io`。
+- GitHub 官方建议 Pages 源仓库不超过 `1 GB`。
+- 已发布站点大小也不应超过 `1 GB`。
+- 部署时间超过 `10 分钟` 可能失败。
+- Pages 带宽存在软限制，官方说明为每月 `100 GB`。
+- 如果使用“从分支发布”的方式，官方说明构建存在软限制：每小时 `10` 次。
+- 当前仓库正是从 `main` 分支的 `/ (root)` 发布。
+- 如果未来频繁连续推送，可能遇到 Pages 构建排队或延迟。
+- GitHub 还可能对访问做速率限制，流量异常时可能出现 `429` 等限制响应。
+- GitHub Pages 不适合承载密码、支付、私密资料、受限分发内容。
+- 如果未来要做权限、搜索后端、数据库或复杂交互系统，应改用其他托管方案，不要硬塞进当前纯静态架构。
+
+## 日常更新命令
+
+在完成页面或专题更新后：
+
+```bash
+cd /Users/apple/Desktop/项目/github-pages
+git status
+git add .
+git commit -m "更新站点内容"
+git push
+```
+
+说明：
+
+- `git push` 到 `main` 后，GitHub Pages 会自动更新站点。
+- 如果只是想先看改了什么，先执行 `git status`，不要直接提交。
+- 提交说明可以按实际内容改成更具体的中文，例如 `新增专题：XXX`、`更新 OPC 首页`。
+
+## 推送后检查
+
+当前线上地址：
+
+- 主站首页：`https://mirbf.github.io/`
+- OPC 专题入口：`https://mirbf.github.io/topics/OPC/index.html`
+- 佛山市禅城区初中资料查询入口：`https://mirbf.github.io/topics/佛山市禅城区初中资料查询/中学总纲入口.html`
+
+推送后可按下面顺序检查：
+
+1. 先打开主站首页，确认首页能访问。
+2. 再分别打开两个专题入口，确认主题页面和资源加载正常。
+3. 如果页面暂时还是旧内容，等待 1 到 3 分钟后再刷新。
+
+查看 GitHub Pages 更新状态：
+
+- 仓库地址：`https://github.com/mirbf/mirbf.github.io`
+- Pages 设置页：`https://github.com/mirbf/mirbf.github.io/settings/pages`
+- 仓库工作流页：`https://github.com/mirbf/mirbf.github.io/actions`
+
+说明：
+
+- GitHub 官方文档说明，使用分支发布时，可以在仓库的 workflow runs 中查看 Pages 的构建或部署错误。
+- 当前仓库是从 `main` 分支的 `/ (root)` 发布。
+- 如果本机已登录 `gh`，也可以用下面命令快速看 Pages 状态：
+
+```bash
+gh api repos/mirbf/mirbf.github.io/pages
+```
+
 ## 后续 AI 接手时不要跑偏
 
 - 不要把它改回 VitePress 方案。
